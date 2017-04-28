@@ -8,7 +8,6 @@ class PhotosController < ApplicationController
   end
 
   def create_row
-
     p = Photo.new
     p.source = params["the_source"]
     p.caption = params["the_caption"]
@@ -26,17 +25,16 @@ class PhotosController < ApplicationController
   end
 
   def update_row
-    p=Photo.find(:the_id_number)
+    p=Photo.find(params[:the_id_number])
     p.source = params["the_source"]
     p.caption = params["the_caption"]
     p.save
 
-    redirecto_to("/photos")
+    redirect_to("/photos")
     #redirect_to("/photos")
   end
 
   def show
-
     @id_number = params["the_id_number"]
     p = Photo.find(@id_number)
     @caption = p.caption
@@ -45,4 +43,12 @@ class PhotosController < ApplicationController
 
     render("show.html.erb")
   end
+
+  def delete_row
+    @id_number = params["the_id_number"]
+    p = Photo.find(@id_number)
+    p.destroy
+    redirect_to("/photos")
+  end
+
 end
